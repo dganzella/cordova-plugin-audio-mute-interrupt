@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="net.doismundos.cordova.audiointerrupt"
+    version="1.0.0">
+
+    <name>AudioInterruptPlugin</name>
+    <description>Mutes the app completely upon being interrupted by siri/calls</description>
+    <license>Apache 2.0</license>
+    <keywords>siri, call, interrupt<keywords>
+
+    <platform name="ios">
+
+      <header-file src="src/ios/AudioInterrupt.h" />
+      <source-file src="src/ios/AudioInterrupt.m" />
+
+      <config-file target="config.xml" parent="/*/plugins">
+          <feature name="AudioInterrupt">
+              <param name="ios-package" value="AudioInterrupt"/>
+			  <param name="onload" value="true" />
+          </feature>
+      </config-file>
+
+    </platform>
+</plugin>
