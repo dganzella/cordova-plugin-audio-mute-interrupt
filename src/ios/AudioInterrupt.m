@@ -10,19 +10,19 @@
 {
 	NSError *setCategoryError = nil;
 
-	[avSession setCategory:AVAudioSessionCategoryPlayback
+	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
          withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
          error:&setCategoryError]
 	
-	[avSession setCategory:AVAudioSessionCategoryPlayAndRecord
+	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
          withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
          error:&setCategoryError]
 		 
-	[avSession setCategory:AVAudioSessionCategorySoloAmbient
+	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient
          withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
          error:&setCategoryError]
 		 
-	[avSession setCategory:AVAudioSessionCategoryMulti
+	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMulti
          withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
          error:&setCategoryError]
 	
