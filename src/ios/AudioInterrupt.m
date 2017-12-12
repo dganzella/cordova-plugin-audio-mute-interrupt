@@ -1,7 +1,7 @@
 #import "AudioInterruptPlugin.h"
 
 @implementation AudioInterruptPlugin{
-
+	    NSString * callbackId;
 }
 
 #pragma mark -
@@ -9,6 +9,12 @@
 -(void) pluginInitialize
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object: [AVAudioSession sharedInstance]];
+}
+
+- (void)addEvents:(CDVInvokedUrlCommand*)command
+{
+    NSLog(@"Add event with success");
+    callbackId = command.callbackId;
 }
 
 - (void)handleInterruption:(NSNotification *)notification
@@ -19,25 +25,33 @@
 
         if ([[notification.userInfo valueForKey:AVAudioSessionInterruptionTypeKey] isEqualToNumber:[NSNumber numberWithInt:AVAudioSessionInterruptionTypeBegan]])
 		{
+		    NSMutableDictionary* eventData = [[NSMutableDictionary alloc] init];
+			[eventData setObject:@"interrupted" forKey:@"status"];
+		
             NSLog(@"InterruptionTypeBegan");
-			self.webView.muted = YES;
+			[self triggerJSEvent: @"onAudioInterruptioniOS" withData: eventData];
         }
 		else
 		{
+			NSMutableDictionary* eventData = [[NSMutableDictionary alloc] init];
+			[eventData setObject:@"resumed" forKey:@"status"];
+			
             NSLog(@"InterruptionTypeEnded");
-			self.webView.muted = NO;
+			[self triggerJSEvent: @"onAudioInterruptioniOS" withData: eventData];
         }
     }
 }			
 
-- (void)onPause 
+- (void)triggerJSEvent:(NSString*)type withData:(NSMutableDictionary*) data
 {
-	self.webView.muted = YES;
-}
-
- - (void)onResume
-{
-	self.webView.muted = NO;
-}						   
+    NSMutableDictionary* message = [[NSMutableDictionary alloc] init];
+    [message setObject:type forKey:@"eventType"];
+    [message setObject:data forKey:@"data"];
+    
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:message];
+    [pluginResult setKeepCallbackAsBool:YES];
+    
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
+}					   
 
 @end
