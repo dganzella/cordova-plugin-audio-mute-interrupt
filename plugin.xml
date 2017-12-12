@@ -7,7 +7,7 @@
     <name>AudioInterruptPlugin</name>
     <description>Mutes the app completely upon being interrupted by siri/calls</description>
     <license>Apache 2.0</license>
-    <keywords>siri, call, interrupt<keywords>
+    <keywords>siri, call, interrupt</keywords>
 
     <platform name="ios">
 
