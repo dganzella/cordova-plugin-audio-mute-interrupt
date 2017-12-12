@@ -4,6 +4,6 @@
 
 @interface AudioInterruptPlugin : CDVPlugin
 
-- (void)addEvents:(CDVInvokedUrlCommand*)command;
+//- (void)addEvents:(CDVInvokedUrlCommand*)command;
 
 @end
