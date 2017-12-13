@@ -1,36 +1,17 @@
-#import "AudioInterruptPlugin.h"
+#import "AudioInterrupt.h"
 
 @implementation AudioInterruptPlugin{
-	    //NSString * callbackId;
+	    NSString * callbackId;
 }
 
 #pragma mark -
 #pragma mark Cordova Methods
 -(void) pluginInitialize
 {
-	NSError *setCategoryError = nil;
-
-	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback
-         withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
-         error:&setCategoryError]
-	
-	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord
-         withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
-         error:&setCategoryError]
-		 
-	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient
-         withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
-         error:&setCategoryError]
-		 
-	[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryMulti
-         withOptions:AVAudioSessionCategoryOptionMixWithOthers | AVAudioSessionCategoryOptionDefaultToSpeaker
-         error:&setCategoryError]
-	
-
-	//[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object: [AVAudioSession sharedInstance]];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleInterruption:) name:AVAudioSessionInterruptionNotification object: [AVAudioSession sharedInstance]];
 }
 
-/*- (void)addEvents:(CDVInvokedUrlCommand*)command
+- (void)addEvents:(CDVInvokedUrlCommand*)command
 {
     NSLog(@"Add event with success");
     callbackId = command.callbackId;
@@ -72,5 +53,5 @@
     
     [self.commandDelegate sendPluginResult:pluginResult callbackId:callbackId];
 }					   
-*/
+
 @end
